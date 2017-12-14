@@ -340,7 +340,7 @@ wait = {
     'message':"Cie ngeadd",
     "lang":"JP",
     "comment":"Yeahhh",
-    "welmsg":"Selamat Datang di ",
+    "welmsg":" Selamat Datang di ",
     "commentOn":True,
     "commentBlack":{},
     "wblack":False,
