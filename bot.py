@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 #baru
-import LIN3TCR
-from LIN3TCR.lib.curve.ttypes import *
+import LINETCR
+from LINETCR.lib.curve.ttypes import *
 from datetime import datetime
-import time, random, sys, re, os, json, subprocess, threading, string, codecs, requests, ctypes, urllib, urllib2, urllib3
+import time,random,sys,json,codecs,threading,glob,re,os,subprocess
 
 cl = LIN3TCR.LINE()
 cl.login(qr=True)
