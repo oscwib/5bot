@@ -2027,7 +2027,7 @@ def bot(op):
                 if wait["commentOn"] == True: md+=" Comment : on\n"
                 else:md+=" Comment : off\n"
 		if wait["likeOn"] == True: md+="Auto like : on\n"
-                else:md+="Auto like : off\n
+                else:md+="Auto like : off\n"
                 if wait["welcomemsg"] == True: md+="welcome message : on\n"
                 else:md+="welcome message : off\n"
                 cl.sendText(msg.to,md)
