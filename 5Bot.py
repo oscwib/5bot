@@ -3989,8 +3989,12 @@ def bot(op):
                                 print error
                                 cl.sendText(msg.to,"Upload image failed.")
 #----------------------------------------------------------------------------
-#---------------------------------- SONG ------------------------------------
----------------------------------- SONG ------------------------------------
+            elif "Apakah " in msg.text:
+                tanya = msg.text.replace("Apakah ","")
+                jawab = ("Ya","Tidak","Bisa jadi")
+                jawaban = random.choice(jawab)
+                cl.sendText(msg.to,jawaban)
+#---------------------------------- SONG ---------------------------------------------------------------------- SONG ------------------------------------
             elif "/lirik " in msg.text.lower():
                 songname = msg.text.replace("/lirik ","")
                 params = {"songname":songname}
