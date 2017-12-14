@@ -320,8 +320,14 @@ Bmid = kk.getProfile().mid
 Cmid = kc.getProfile().mid
 Dmid = ks.getProfile().mid
 Emid = kt.getProfile().mid
-#Fmid = kl.getProfile().mid
 
+protectname = []
+protecturl = []
+protection = []
+autocancel = {}
+autoinvite = []
+autoleaveroom = []
+targets = []
 Bots=[mid,Amid,Bmid,Cmid,Dmid,Emid,"u5427d8047ab127f5e237eaedd1f0b93b"]
 admin=["u5427d8047ab127f5e237eaedd1f0b93b"]
 owner=["u5427d8047ab127f5e237eaedd1f0b93b"]
@@ -383,7 +389,6 @@ res = {
     'us':{},
     'au':{},
 }
-
 
 setTime = {}
 setTime = wait2['setTime']
@@ -639,49 +644,20 @@ def sendMessage(to, text, contentMetadata={}, contentType=0):
         messageReq[to] = -1
     messageReq[to] += 1
 
-def sendMessage(to, text, contentMetadata={}, contentType=0):
-    mes = Message()
-    mes.to, mes.from_ = to, profile.mid
-    mes.text = text
-    mes.contentType, mes.contentMetadata = contentType, contentMetadata
-    if to not in messageReq:
-        messageReq[to] = -1
-    messageReq[to] += 1
 def NOTIFIED_READ_MESSAGE(op):
-    print op
     try:
         if op.param1 in wait2['readPoint']:
             Name = cl.getContact(op.param2).displayName
             if Name in wait2['readMember'][op.param1]:
                 pass
             else:
-                wait2['readMember'][op.param1] += "\n・" + Name + datetime.now().strftime(' [%d - %H:%M:%S]')
-                wait2['ROM'][op.param1][op.param2] = "・" + Name + " ツ"
+                wait2['readMember'][op.param1] += "\n・" + Name
+                wait2['ROM'][op.param1][op.param2] = "・" + Name
         else:
             pass
     except:
         pass
-def RECEIVE_MESSAGE(op):
-    msg = op.message
-    try:
-        if msg.contentType == 0:
-            try:
-                if msg.to in wait2['readPoint']:
-                    if msg.from_ in wait2["ROM"][msg.to]:
-                        del wait2["ROM"][msg.to][msg.from_]
-                else:
-                    pass
-            except:
-                pass
-        else:
-            pass
-          
-    except KeyboardInterrupt:
-				sys.exit(0)
-    except Exception as error:
-        print error
-        print ("\n\nRECEIVE_MESSAGE\n\n")
-        return
+
 def bot(op):
     try:
         if op.type == 0:
@@ -4779,7 +4755,7 @@ time.sleep(0.60)
 
 while True:
     try:
-        Ops = cl.fetchOps(cl.Poll.rev,  5)
+        Ops = cl.fetchOps(cl.Poll.rev, 5)
     except EOFError:
         raise Exception("It might be wrong revision\n" + str(cl.Poll.rev))
 
