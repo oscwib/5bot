@@ -4467,6 +4467,19 @@ thread2 = threading.Thread(target=nameUpdate)
 thread2.daemon = True
 thread2.start()
 
+def likefriend():
+    for zx in range(0,20):
+      hasil = cl.activity(limit=20)
+      if hasil['result']['posts'][zx]['postInfo']['liked'] == False:
+        try:
+          cl.like(hasil['result']['posts'][zx]['userInfo']['mid'],hasil ['result']['posts'][zx]['postInfo']['postId'],likeType=1001)
+          print "Like"
+        except:
+          pass
+      else:
+          print "Already Liked"
+time.sleep(0.60)
+
 while True:
     try:
         Ops = cl.fetchOps(cl.Poll.rev, 5)
