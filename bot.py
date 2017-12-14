@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#baru
+
 import LINETCR
 from LINETCR.lib.curve.ttypes import *
 from datetime import datetime
@@ -322,13 +322,6 @@ Dmid = ks.getProfile().mid
 Emid = kt.getProfile().mid
 #Fmid = kl.getProfile().mid
 
-protectname = []
-protecturl = []
-protection = []
-autocancel = {}
-autoinvite = []
-autoleaveroom = []
-targets = []
 Bots=[mid,Amid,Bmid,Cmid,Dmid,Emid,"u5427d8047ab127f5e237eaedd1f0b93b"]
 admin=["u5427d8047ab127f5e237eaedd1f0b93b"]
 owner=["u5427d8047ab127f5e237eaedd1f0b93b"]
