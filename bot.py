@@ -9,21 +9,21 @@ cl = LINETCR.LINE()
 cl.login(qr=True)
 cl.loginResult()
 
-kt = LINETCR.LINE()
-kt.login(qr=True)
-kt.loginResult()
-
-ks = LINETCR.LINE()
-ks.login(qr=True)
-ks.loginResult()
-
 ki = LINETCR.LINE()
 ki.login(qr=True)
 ki.loginResult()
 
-ki = kt
+kk = LINETCR.LINE()
+kk.login(qr=True)
+kk.loginResult()
 
-kk = ks
+kc = LINETCR.LINE()
+kc.login(qr=True)
+kc.loginResult()
+
+kt = ki
+
+ks = kk
 
 print "Acil"
 reload(sys)
