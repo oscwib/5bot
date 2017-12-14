@@ -3,7 +3,10 @@
 import LINETCR
 from LINETCR.lib.curve.ttypes import *
 from datetime import datetime
-import time,random,sys,json,codecs,threading,glob,re,os,subprocess
+import time,random,sys,json,codecs,threading,glob,re,datetime,subprocess,urllib3,os,requests,urllib
+#from bs4 import BeautifulSoup
+#from threading import Thread
+#from pyowm import OWM
 
 cl = LINETCR.LINE()
 cl.login(token="EnoMvTYT8r6DzH5FPIfc.eoXp0xK1vqkdnL9Q78yCpa.RHW0qXoDXuxWZbKuepliPsICIL3BRUIq//e6ti6FlWY=")
@@ -360,8 +363,6 @@ wait = {
     "protectionOn":True,
     "winvite":False,
     "pnharfbot":{},
-    "pname":{},
-    "pro_name":{},
     "tag":False,
     "autorein":True,
     "pelaku":False,
@@ -644,6 +645,7 @@ def sendMessage(to, text, contentMetadata={}, contentType=0):
         messageReq[to] = -1
     messageReq[to] += 1
 
+
 def NOTIFIED_READ_MESSAGE(op):
     try:
         if op.param1 in wait2['readPoint']:
@@ -670,59 +672,6 @@ def bot(op):
                 else:
                     cl.sendText(op.param1,str(wait["message"]))
 
-        if op.type == 11:
-            if op.param3 == '1':
-                if op.param1 in wait['pname']:
-                    try:
-                        G = cl.getGroup(op.param1)
-                    except:
-                        try:
-                            G = ki.getGroup(op.param1)
-                        except:
-                            try:
-                                G = kk.getGroup(op.param1)
-                            except:
-                                try:
-                                    G = kc.getGroup(op.param1)
-                                except:
-                                    try:
-                                        G = ks.getGroup(op.param1)
-				    except:
-					try:
-                                            G = kt.getGroup(op.param1)
-                                        except:
-                                            pass
-                    G.name = wait['pro_name'][op.param1]
-                    try:
-                        cl.updateGroup(G)
-                    except:
-                        try:
-                            ki.updateGroup(G)
-                        except:
-                            try:
-                                kk.updateGroup(G)
-                            except:
-                                try:
-                                    kc.updateGroup(G)
-                                except:
-                                    try:
-                                        ks.updateGroup(G)
-                                    except:
-                                        try:
-                                            kt.updateGroup(G)
-                                        except:
-                                            pass
-                    if op.param2 in ken:
-                        pass
-                    else:
-                        try:
-                            ki.kickoutFromGroup(op.param1,[op.param2])
-                        except:
-                            try:
-                                kk.kickoutFromGroup(op.param1,[op.param2])
-                            except:
-                                try:
-                                    kc.kickoutFromGroup(op.param1,[op.param2])
                                 except:
                                     try:
                                         ks.kickoutFromGroup(op.param1,[op.param2])
