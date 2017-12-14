@@ -255,6 +255,35 @@ helpMessage= """\n
 ═╬════════►
    💻P̸͟͞o̸͟͞w̸͟͞e̸͟͞r̸͟͞💻
 ═╬════════►
+􀔃􀅕red arrow right􏿿 Command Public
+[Me]       Cek Akun Sendiri
+[My mid]   Cek Akun Mid
+[Bot?]     Cek Akun Bot
+[Id Group] Cek Id Group
+[Ginfo]    Group Info
+[Mid RA]   Cek All mid Bot
+[RA 1/2/3/4] Cek Mid Bot
+[Respon]   Cek Respon Bot
+[Speedbot] Cek Kecepatan Bot
+[Up]       Fungsi Spam Chat
+[Tagall]   Mention Semua User
+[Banlist]  Cek List Akun Banned
+[Gn namagroup] Ganti Nama Group
+[Cancel] Cancel User Masuk Group
+[Set View] Cek Privasi Group
+[Open Url]  Membuka Url Group
+[Close Url] Menutup Url Group
+􀔃􀅕red arrow right􏿿 Command Private
+[Set group] Menggatur Privasi Grup
+[Banned @] Bann Target 
+[Unban @]  Unbann Target
+[Kill @] Kick Target Bann
+[Nk @]   Kick Target User
+[Invite mid] Invite Via Mid
+[Kick mid] Kick Via mid
+[Ayo masuk] Invite Semua Bot
+[_namabot join] Invite Bot
+[Bye _namabot]  Leave Bot
 🔘Turn off bots🔘
 ●▬▬▬▬๑۩Special Thanks۩๑▬▬▬▬▬●
 P̸͟͞O̸͟͞W̸͟͞E̸͟͞R̸͟͞ B̸͟͞Y̸͟͞ T̸͟͞C̸͟͞R̸͟͞
@@ -369,7 +398,7 @@ wait = {
     "blacklist":{},
     "wblacklist":False,
     "dblacklist":False,
-    "Protectgr":True,
+    "Protectgr":False,
     "likeOn":False,
     "welcomemsg":True,
     "Protectjoin":False,
@@ -3930,6 +3959,21 @@ def bot(op):
                 cl.sendText(msg.to,p)
                 print "[Command] Kerang Ajaib"
 #----------------------------------------------------------------------------
+#========================================
+            elif "Spam @" in msg.text:
+                _name = msg.text.replace("pam @","")
+                _nametarget = _name.rstrip(' ')
+                gs = cl.getGroup(msg.to)
+                for g in gs.members:
+                    if _nametarget == g.displayName:
+                       cl.sendText(g.mid,"Spammed")
+                       ki.sendText(g.mid,"Spammed")
+                       kc.sendText(g.mid,"Spammed")
+                       ks.sendText(g.mid,"Spammed")
+                       kk.sendText(g.mid,"Spammed")
+                       kt.sendText(g.mid,"Spammed")
+                       ct.sendText(msg.to,"done spam bossque")
+
 #------------------------------- COVER BY TAG -------------------------------#
             elif "cover @" in msg.text:
                 if msg.toType == 2:
