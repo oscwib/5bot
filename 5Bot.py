@@ -320,6 +320,7 @@ textspeech= """╔═════════════════
 ╠➩ 'vi' : 'Vietnamese'
 ╠➩ 'cy' : 'Welsh'
 ╚═════════════════
+"""
 
 Setgroup =""" Privasi Menu V.1 􀔃􀄆red check mark􏿿
 
