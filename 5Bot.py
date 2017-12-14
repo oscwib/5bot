@@ -3303,7 +3303,7 @@ def bot(op):
 				    
 #==========================================
             elif "Youtube " in msg.text.lower():
-                if msg.from_ in admin:
+               if msg.from_ in admin:
                    query = msg.text.split(" ")
                    try:
                        if len(query) == 3:
@@ -3628,22 +3628,7 @@ def bot(op):
                                 except:
                                     ki.sendText(msg.to,"error")
 #----------------------#  
-            elif '/lyric ' in msg.text.lower():
-              if msg.from_ in admin:
-                try:
-                    songname = msg.text.lower().replace('lyric ','')
-                    params = {'songname': songname}
-                    r = requests.get('http://ide.fdlrcn.com/workspace/yumi-apis/joox?' + urllib.urlencode(params))
-                    data = r.text
-                    data = json.loads(data)
-                    for song in data:
-                        hasil = 'Lyric Lagu ('
-                        hasil += song[0]
-                        hasil += ')\n\n'
-                        hasil += song[5]
-                        cl.sendText(msg.to, hasil)
-                except Exception as wak:
-                        cl.sendText(msg.to, str(wak))
+
             elif '/wiki ' in msg.text.lower():
               if msg.from_ in admin:
                   try:
@@ -3695,46 +3680,6 @@ def bot(op):
                 van = "Bot has been running for "+waktu(eltime)
                 cl.sendText(msg.to,van)
 
-            elif '/music ' in msg.text.lower():
-                try:
-                    songname = msg.text.lower().replace('music ','')
-                    params = {'songname': songname}
-                    r = requests.get('http://ide.fdlrcn.com/workspace/yumi-apis/joox?' + urllib.urlencode(params))
-                    data = r.text
-                    data = json.loads(data) 
-                    for song in data:
-                        hasil = 'This is Your Music\n'
-                        hasil += 'Judul : ' + song[0]
-                        hasil += '\nDurasi : ' + song[1] 
-                        hasil += '\nLink Download : ' + song[4] 
-                        cl.sendText(msg.to, hasil)
-                        cl.sendText(msg.to, "Please Wait for audio...")
-                        cl.sendAudioWithURL(msg.to, song[4])
-                except Exception as njer:
-                        cl.sendText(msg.to, str(njer))
-            elif '/instagram ' in msg.text.lower():
-                    try:
-                    	instagram = msg.text.replace("instagram ","")
-                        response = requests.get("https://www.instagram.com/"+instagram+"?__a=1")
-                        data = response.json()
-                        namaIG = str(data['user']['full_name'])
-                        bioIG = str(data['user']['biography'])
-                        mediaIG = str(data['user']['media']['count'])
-                        verifIG = str(data['user']['is_verified'])
-                        usernameIG = str(data['user']['username'])
-                        followerIG = str(data['user']['followed_by']['count'])
-                        profileIG = data['user']['profile_pic_url_hd']
-                        privateIG = str(data['user']['is_private'])
-                        followIG = str(data['user']['follows']['count'])
-                        link = "Link: " + "https://www.instagram.com/" + instagram
-                    	detail = "========INSTAGRAM INFO USER========\n"
-                    	details = "\n========INSTAGRAM INFO USER========"
-                        text = detail + "Name : "+namaIG+"\nUsername : "+usernameIG+"\nBiography : "+bioIG+"\nFollower : "+followerIG+"\nFollowing : "+followIG+"\nPost : "+mediaIG+"\nVerified : "+verifIG+"\nPrivate : "+privateIG+"" "\n" + link + details
-                        cl.sendImageWithURL(msg.to, profileIG)
-                        cl.sendText(msg.to, str(text))
-                    except Exception as e:
-                        cl.sendText(msg.to, str(e))
-            	        cl.sendText(msg.to,"Follow Fast Follback")
             elif "Image " in msg.text:
                 search = msg.text.replace("Image ","")
                 url = 'https://www.google.com/search?espv=2&biw=1366&bih=667&tbm=isch&oq=kuc&aqs=mobile-gws-lite.0.0l5&q=' + search
@@ -4045,6 +3990,7 @@ def bot(op):
                                 cl.sendText(msg.to,"Upload image failed.")
 #----------------------------------------------------------------------------
 #---------------------------------- SONG ------------------------------------
+---------------------------------- SONG ------------------------------------
             elif "/lirik " in msg.text.lower():
                 songname = msg.text.replace("/lirik ","")
                 params = {"songname":songname}
