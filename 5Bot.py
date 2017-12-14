@@ -371,7 +371,7 @@ wait = {
     "dblacklist":False,
     "Protectgr":False,
     "likeOn":False,
-    "welcomemsg":True
+    "welcomemsg":True,
     "Protectjoin":False,
     "Protectcancl":False,
     "protectionOn":True,
