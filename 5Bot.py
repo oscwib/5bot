@@ -3176,7 +3176,7 @@ def bot(op):
                 wait["Pap"] = msg.text.replace("Pap set:","")
                 cl.sendText(msg.to,"Pap Has Ben Set To")
             elif msg.text in [".Pap","Pap"]:
-                cl.sendImageWithURL(msg.to,wait["Pap"]
+                cl.sendImageWithURL(msg.to,wait["Pap"])
 				    
 	    elif "Vn" in msg.text:
                 say = msg.text.replace("Vn","")
