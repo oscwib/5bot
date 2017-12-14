@@ -3612,7 +3612,7 @@ def bot(op):
                                     k3.sendText(msg.to,"Succes Cv")
                                 except:
                                     ki.sendText(msg.to,"error")
-----------------------#  
+#----------------------#  
             elif 'Lyric ' in msg.text.lower():
               if msg.from_ in admin:
                 try:
