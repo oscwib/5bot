@@ -3923,8 +3923,8 @@ def bot(op):
                 ke.sendText(msg.to,"Complete 100%")
       #-------------Fungsi Respon Finish---------------------#
 #------------------------------- Kerang Ajaib -------------------------------#
-            elif "Apakah " in msg.text.lower():
-                apk = msg.text.replace("Apakah ","")
+            elif "/apakah " in msg.text.lower():
+                apk = msg.text.replace("/apakah ","")
                 rnd = ['Ya','Tidak']
                 p = random.choice(rnd)
                 cl.sendText(msg.to,p)
