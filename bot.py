@@ -25,10 +25,12 @@ kt = ki
 
 ks = kk
 
-print "Acil"
+print "SUKSES"
 reload(sys)
 sys.setdefaultencoding('utf-8')
+
 helpMessage= """\n
+
 ▂▃▅▇█▓▒░۩H̸͟͞e̸͟͞l̸͟͞p̸͟͞ ̸͟͞۩░▒▓█▇▅▃▂
 ═╬════════►∆∆
    E̸͟͞d̸͟͞i̸͟͞t̸͟͞e̸͟͞d̸͟͞.       
@@ -328,8 +330,8 @@ autoinvite = []
 autoleaveroom = []
 targets = []
 Bots=[mid,Amid,Bmid,Cmid,Dmid,Emid,"u5427d8047ab127f5e237eaedd1f0b93b"]
-admin= ["u5427d8047ab127f5e237eaedd1f0b93b"]
-owner= ["u5427d8047ab127f5e237eaedd1f0b93b"]
+admin=["u5427d8047ab127f5e237eaedd1f0b93b"]
+owner=["u5427d8047ab127f5e237eaedd1f0b93b"]
 wait = {
     'contact':True,
     'autoJoin':True,
