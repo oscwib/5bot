@@ -877,7 +877,7 @@ def bot(op):
                         Ti = kt.reissueGroupTicket(op.param1)
 #======================================================
                 if op.param3 in Bmid:
-                    if op.param2 in Bots or creator::
+                    if op.param2 in Bots or creator:
                         G = cl.getGroup(op.param1)
                         G.preventJoinByTicket = False
                         cl.updateGroup(G)
