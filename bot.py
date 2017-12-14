@@ -5,19 +5,19 @@ from LINETCR.lib.curve.ttypes import *
 from datetime import datetime
 import time,random,sys,json,codecs,threading,glob,re,os,subprocess
 
-cl = LIN3TCR.LINE()
+cl = LINETCR.LINE()
 cl.login(qr=True)
 cl.loginResult()
 
-kt = LIN3TCR.LINE()
+kt = LINETCR.LINE()
 kt.login(qr=True)
 kt.loginResult()
 
-ks = LIN3TCR.LINE()
+ks = LINETCR.LINE()
 ks.login(qr=True)
 ks.loginResult()
 
-ki = LIN3TCR.LINE()
+ki = LINETCR.LINE()
 ki.login(qr=True)
 ki.loginResult()
 
