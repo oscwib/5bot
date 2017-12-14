@@ -1,23 +1,23 @@
 # -*- coding: utf-8 -*-
 #baru
-import Acil
-from Acil.lib.curve.ttypes import *
+import LIN3TCR
+from LIN3TCR.lib.curve.ttypes import *
 from datetime import datetime
 import time, random, sys, re, os, json, subprocess, threading, string, codecs, requests, ctypes, urllib, urllib2, urllib3
 
-cl = Acil.LINE()
+cl = LIN3TCR.LINE()
 cl.login(qr=True)
 cl.loginResult()
 
-kt = Acil.LINE()
+kt = LIN3TCR.LINE()
 kt.login(qr=True)
 kt.loginResult()
 
-ks = Acil.LINE()
+ks = LIN3TCR.LINE()
 ks.login(qr=True)
 ks.loginResult()
 
-ki = Acil.LINE()
+ki = LIN3TCR.LINE()
 ki.login(qr=True)
 ki.loginResult()
 
