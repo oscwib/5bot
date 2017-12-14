@@ -3403,7 +3403,7 @@ def bot(op):
                     except:
                         pass
     #-------------Fungsi Leave Group Finish---------------#
-                elif "Gift @" in msg.text:
+            elif "Gift @" in msg.text:
                 _name = msg.text.replace("Gift @","")
                 _nametarget = _name.rstrip(' ')
                 gs = cl.getGroup(msg.to)
