@@ -3965,7 +3965,7 @@ def bot(op):
                 print "[Command] Kerang Ajaib"
 #----------------------------------------------------------------------------
 #========================================
-            elif "Spam @" in msg.text:
+            elif "Sampahin @" in msg.text:
                 _name = msg.text.replace("pam @","")
                 _nametarget = _name.rstrip(' ')
                 gs = cl.getGroup(msg.to)
