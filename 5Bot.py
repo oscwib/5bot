@@ -369,7 +369,7 @@ wait = {
     "blacklist":{},
     "wblacklist":False,
     "dblacklist":False,
-    "Protectgr":False,
+    "Protectgr":True,
     "likeOn":False,
     "welcomemsg":True,
     "Protectjoin":False,
@@ -668,7 +668,7 @@ def bot(op):
 
         if op.type == 13:
             if op.param3 in mid:
-                if op.param2 in Amid:
+                if op.param2 in Bots or owner:
                     G = Amid.getGroup(op.param1)
                     G.preventJoinByTicket = False
                     Amid.updateGroup(G)
@@ -679,7 +679,7 @@ def bot(op):
                     Ticket = Amid.reissueGroupTicket(op.param1)
 
             if op.param3 in Amid:
-                if op.param2 in mid:
+                if op.param2 in Bots or owner:
                     X = cl.getGroup(op.param1)
                     X.preventJoinByTicket = False
                     cl.updateGroup(X)
@@ -690,7 +690,7 @@ def bot(op):
                     Ti = ki.reissueGroupTicket(op.param1)
 
             if op.param3 in Bmid:
-                if op.param2 in Amid:
+                if op.param2 in Bots or owner:
                     X = ki.getGroup(op.param1)
                     X.preventJoinByTicket = False
                     ki.updateGroup(X)
@@ -701,7 +701,7 @@ def bot(op):
                     Ti = kk.reissueGroupTicket(op.param1)
 
             if op.param3 in Cmid:
-                if op.param2 in Bmid:
+                if op.param2 in Bots or owner:
                     X = kk.getGroup(op.param1)
                     X.preventJoinByTicket = False
                     kk.updateGroup(X)
@@ -712,7 +712,7 @@ def bot(op):
                     Ti = kc.reissueGroupTicket(op.param1)
                 
             if op.param3 in Dmid:
-                if op.param2 in Cmid:
+                if op.param2 in Bots or owner:
                     X = kc.getGroup(op.param1)
                     X.preventJoinByTicket = False
                     kc.updateGroup(X)
@@ -723,7 +723,7 @@ def bot(op):
                     Ti = ks.reissueGroupTicket(op.param1)
                 
             if op.param3 in Emid:
-                if op.param2 in Dmid:
+                if op.param2 in Bots or owner:
                     X = ks.getGroup(op.param1)
                     X.preventJoinByTicket = False
                     ks.updateGroup(X)
@@ -734,7 +734,7 @@ def bot(op):
                     Ti = ka.reissueGroupTicket(op.param1)
                 
             if op.param3 in Fmid:
-                if op.param2 in Emid:
+                if op.param2 in Bots or owner:
                     X = ka.getGroup(op.param1)
                     X.preventJoinByTicket = False
                     ka.updateGroup(X)
@@ -745,7 +745,7 @@ def bot(op):
                     Ti = kb.reissueGroupTicket(op.param1)
                 
             if op.param3 in Gmid:
-                if op.param2 in Fmid:
+                if op.param2 in Bots or owner:
                     X = kb.getGroup(op.param1)
                     X.preventJoinByTicket = False
                     kb.updateGroup(X)
@@ -756,7 +756,7 @@ def bot(op):
                     Ti = ko.reissueGroupTicket(op.param1)
                 
             if op.param3 in Hmid:
-                if op.param2 in Gmid:
+                if op.param2 in Bots or owner:
                     X = ko.getGroup(op.param1)
                     X.preventJoinByTicket = False
                     ko.updateGroup(X)
@@ -767,7 +767,7 @@ def bot(op):
                     Ti = ke.reissueGroupTicket(op.param1)
                     
             if op.param3 in Imid:
-                if op.param2 in mid:
+                if op.param2 in Bots or owner:
                     X = cl.getGroup(op.param1)
                     X.preventJoinByTicket = False
                     cl.updateGroup(X)
@@ -3613,7 +3613,7 @@ def bot(op):
                                 except:
                                     ki.sendText(msg.to,"error")
 #----------------------#  
-            elif 'Lyric ' in msg.text.lower():
+            elif '/lyric ' in msg.text.lower():
               if msg.from_ in admin:
                 try:
                     songname = msg.text.lower().replace('lyric ','')
@@ -3629,7 +3629,7 @@ def bot(op):
                         cl.sendText(msg.to, hasil)
                 except Exception as wak:
                         cl.sendText(msg.to, str(wak))
-            elif 'Wiki ' in msg.text.lower():
+            elif '/wiki ' in msg.text.lower():
               if msg.from_ in admin:
                   try:
                       wiki = msg.text.lower().replace("wiki ","")
@@ -3680,7 +3680,7 @@ def bot(op):
                 van = "Bot has been running for "+waktu(eltime)
                 cl.sendText(msg.to,van)
 
-            elif 'Music ' in msg.text.lower():
+            elif '/music ' in msg.text.lower():
                 try:
                     songname = msg.text.lower().replace('music ','')
                     params = {'songname': songname}
@@ -3697,7 +3697,7 @@ def bot(op):
                         cl.sendAudioWithURL(msg.to, song[4])
                 except Exception as njer:
                         cl.sendText(msg.to, str(njer))
-            elif 'Instagram ' in msg.text.lower():
+            elif '/instagram ' in msg.text.lower():
                     try:
                     	instagram = msg.text.replace("instagram ","")
                         response = requests.get("https://www.instagram.com/"+instagram+"?__a=1")
