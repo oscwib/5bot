@@ -672,19 +672,6 @@ def bot(op):
                 else:
                     cl.sendText(op.param1,str(wait["message"]))
 
-                                except:
-                                    try:
-                                        ks.kickoutFromGroup(op.param1,[op.param2])
-                                    except:
-                                        try:
-                                            kt.kickoutFromGroup(op.param1,[op.param2])
-                                        except:
-                                            pass
-                                        kk.sendText(op.param1,"please do not change group name-_-")
-                                        c = Message(to=op.param1, from_=None, text=None, contentType=13)
-                                        c.contentMetadata={'mid':op.param2}
-                                        cl.sendMessage(c)
-
         if op.type == 13:
                 if op.param3 in mid:
                     if op.param2 in Amid:
