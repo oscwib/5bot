@@ -767,7 +767,7 @@ def bot(op):
 
         if op.type == 13:
                 if op.param3 in mid:
-                    if op.param2 in Bots or creator:
+                    if op.param2 in Amid:
                         G = ki.getGroup(op.param1)
                         G.preventJoinByTicket = False
                         ki.updateGroup(G)
@@ -778,7 +778,7 @@ def bot(op):
                         Ticket = ki.reissueGroupTicket(op.param1)
 
                 if op.param3 in Amid:
-                    if op.param2 in Bots or creator:
+                    if op.param2 in Bmid:
                         X = kk.getGroup(op.param1)
                         X.preventJoinByTicket = False
                         kk.updateGroup(X)
@@ -789,7 +789,7 @@ def bot(op):
                         Ti = kk.reissueGroupTicket(op.param1)
 
                 if op.param3 in Bmid:
-                    if op.param2 in Bots or creator:
+                    if op.param2 in Cmid:
                         X = kc.getGroup(op.param1)
                         X.preventJoinByTicket = False
                         kc.updateGroup(X)
@@ -798,9 +798,8 @@ def bot(op):
                         X.preventJoinByTicket = True
                         kc.updateGroup(X)
                         Ti = kc.reissueGroupTicket(op.param1)
-			
                 if op.param3 in Cmid:
-                    if op.param2 in Bots or creator:
+                    if op.param2 in Dmid:
                         X = kd.getGroup(op.param1)
                         X.preventJoinByTicket = False
                         kd.updateGroup(X)
@@ -809,9 +808,8 @@ def bot(op):
                         X.preventJoinByTicket = True
                         kd.updateGroup(X)
                         Ti = kd.reissueGroupTicket(op.param1)
-			
                 if op.param3 in Dmid:
-                    if op.param2 in Bots or creator:
+                    if op.param2 in Emid:
                         X = ke.getGroup(op.param1)
                         X.preventJoinByTicket = False
                         ke.updateGroup(X)
@@ -820,9 +818,8 @@ def bot(op):
                         X.preventJoinByTicket = True
                         ke.updateGroup(X)
                         Ti = ke.reissueGroupTicket(op.param1)
-			
                 if op.param3 in Emid:
-                    if op.param2 in Bots or creator:
+                    if op.param2 in mid:
                         X = kf.getGroup(op.param1)
                         X.preventJoinByTicket = False
                         kf.updateGroup(X)
@@ -833,7 +830,7 @@ def bot(op):
                         Ti = kf.reissueGroupTicket(op.param1)
 #=====================================================================================
                 if op.param3 in mid:
-                    if op.param2 in Bots or creator:
+                    if op.param2 in Bmid:
                         X = kk.getGroup(op.param1)
                         X.preventJoinByTicket = False
                         kk.updateGroup(X)
@@ -842,9 +839,8 @@ def bot(op):
                         X.preventJoinByTicket = True
                         kk.updateGroup(X)
                         Ti = kk.reissueGroupTicket(op.param1)
-			
                 if op.param3 in mid:
-                    if op.param2 in Bots or creator:
+                    if op.param2 in Cmid:
                         X = kc.getGroup(op.param1)
                         X.preventJoinByTicket = False
                         kc.updateGroup(X)
@@ -853,9 +849,8 @@ def bot(op):
                         X.preventJoinByTicket = True
                         kc.updateGroup(X)
                         Ti = kc.reissueGroupTicket(op.param1)
-			
                 if op.param3 in mid:
-                    if op.param2 in Bots or creator:
+                    if op.param2 in Dmid:
                         X = ks.getGroup(op.param1)
                         X.preventJoinByTicket = False
                         ks.updateGroup(X)
@@ -864,9 +859,8 @@ def bot(op):
                         X.preventJoinByTicket = True
                         ks.updateGroup(X)
                         Ti = ks.reissueGroupTicket(op.param1)
-			
                 if op.param3 in mid:
-                    if op.param2 in Bots or creator:
+                    if op.param2 in Emid:
                         X = kt.getGroup(op.param1)
                         X.preventJoinByTicket = False
                         kt.updateGroup(X)
@@ -877,7 +871,7 @@ def bot(op):
                         Ti = kt.reissueGroupTicket(op.param1)
 #======================================================
                 if op.param3 in Bmid:
-                    if op.param2 in Bots or creator:
+                    if op.param2 in mid:
                         G = cl.getGroup(op.param1)
                         G.preventJoinByTicket = False
                         cl.updateGroup(G)
@@ -886,9 +880,8 @@ def bot(op):
                         G.preventJoinByTicket = True
                         cl.updateGroup(G)
                         Ticket = cl.reissueGroupTicket(op.param1)
-			
                 if op.param3 in Bmid:
-                    if op.param2 in Bots or creator:
+                    if op.param2 in Cmid:
                         G = kc.getGroup(op.param1) 
                         G.preventJoinByTicket = False
                         kc.updateGroup(G)
@@ -897,9 +890,8 @@ def bot(op):
                         G.preventJoinByTicket = True
                         kc.updateGroup(G)
                         Ticket = kc.reissueGroupTicket(op.param1)
-			
                 if op.param3 in Bmid:
-                    if op.param2 in Bots or creator:
+                    if op.param2 in Dmid:
                         G = ks.getGroup(op.param1) 
                         G.preventJoinByTicket = False
                         ks.updateGroup(G)
@@ -908,9 +900,8 @@ def bot(op):
                         G.preventJoinByTicket = True
                         ks.updateGroup(G)
                         Ticket = ks.reissueGroupTicket(op.param1)
-			
                 if op.param3 in Bmid:
-                    if op.param2 in Bots or creator:
+                    if op.param2 in Emid:
                         G = kt.getGroup(op.param1) 
                         G.preventJoinByTicket = False
                         kt.updateGroup(G)
