@@ -2722,7 +2722,6 @@ def bot(op):
                         cl.sendText(msg.to,"welcome message on\n\n"+ datetime.today().strftime('%H:%M:%S'))
                     else:
                         cl.sendText(msg.to,"welcome message on")
-            elif msg.text in ["Auto blockqr:on","auto blockqr:on"]:
 		
             elif msg.text in ["Welcome message:off"]:
               if msg.from_ in admin:
