@@ -11,7 +11,7 @@ import time,random,sys,json,codecs,threading,glob,re
 
 
 cl = LINETCR.LINE()
-cl.login(token="EnoMvTYT8r6DzH5FPIfc.eoXp0xK1vqkdnL9Q78yCpa.RHW0qXoDXuxWZbKuepliPsICIL3BRUIq//e6ti6FlWY="
+cl.login(token="EnoMvTYT8r6DzH5FPIfc.eoXp0xK1vqkdnL9Q78yCpa.RHW0qXoDXuxWZbKuepliPsICIL3BRUIq//e6ti6FlWY=")
 cl.loginResult()
 
 kc = LINETCR.LINE()
