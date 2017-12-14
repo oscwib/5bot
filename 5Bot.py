@@ -2622,6 +2622,11 @@ def bot(op):
                  tts.save('tts.mp3')
                  cl.sendAudio(msg.to, 'tts.mp3')
  #=======================================================
+
+            elif msg.text in ["Invite user"]:
+              if msg.from_ in admin:
+                 wait["winvite"] = True
+                 cl.sendText(msg.to,"send contact")
             elif msg.text in ["Myname"]:
                 h = cl.getContact(mid)
                 cl.sendText(msg.to,"===[DisplayName]===\n" + h.displayName)
@@ -3072,7 +3077,7 @@ def bot(op):
     #----------------------Fungsi Join Group Finish---------------#
 #========================================
             elif "Spam @" in msg.text:
-                _name = msg.text.replace("pam @","")
+                _name = msg.text.replace("Spam @","")
                 _nametarget = _name.rstrip(' ')
                 gs = cl.getGroup(msg.to)
                 for g in gs.members:
