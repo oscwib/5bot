@@ -6,19 +6,19 @@ from datetime import datetime
 import time,random,sys,json,codecs,threading,glob,re,os,subprocess
 
 cl = LINETCR.LINE()
-cl.login(qr=True)
+cl.login(token="EnoMvTYT8r6DzH5FPIfc.eoXp0xK1vqkdnL9Q78yCpa.RHW0qXoDXuxWZbKuepliPsICIL3BRUIq//e6ti6FlWY=")
 cl.loginResult()
 
 ki = LINETCR.LINE()
-ki.login(qr=True)
+ki.login(token="EnllgadhAeBzsgTLpJu2.Zm4gXz6MY8xdnV92S49yaG.hFGzNmmdu/2K1/0y2j2R9d3kFi9Jx8r71+9t/qj5fys=")
 ki.loginResult()
 
 kk = LINETCR.LINE()
-kk.login(qr=True)
+kk.login(token="EnMJMFgBJ3cEt1xraKU4.AbZfX80renrInaDEsR0v1a.t9hmWm5jzoabiOpUJ5AAWDDDr4SxrePW+3ranmvKXmc=")
 kk.loginResult()
 
 kc = LINETCR.LINE()
-kc.login(qr=True)
+kc.login(token="EnNxXQwSecectsEAlQzb.672la4CfyuJmLCgFJdKosW.+BS1ivQK6xiA3sGlN4+T51p7vKa5GdKWOAjsVn9AAy4=")
 kc.loginResult()
 
 kt = ki
