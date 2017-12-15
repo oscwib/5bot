@@ -3,7 +3,11 @@
 import LINETCR
 from LINETCR.lib.curve.ttypes import *
 from datetime import datetime
-import time,random,sys,json,codecs,threading,glob,re
+from bs4 import BeautifulSoup
+from threading import Thread
+from googletrans import Translator
+from gtts import gTTS
+import time,random,sys,json,codecs,threading,glob,urllib,urllib2,urllib3,re,ast,os,subprocess,requests,tempfile
 
 #kk = LINETCR.LINE()
 #kk.login(qr=True)
@@ -405,6 +409,9 @@ wait = {
     "Protectcancl":False,
     "protectionOn":True,
     "atjointicket":True,
+    "Pap":"http://www.rockcreekdothan.com/Common/images/jquery/galleria/image-not-found.png",
+    "SetKey":".",
+    "spam":"Your Account Has Been Spammed
     }
 
 wait2 = {
@@ -3057,19 +3064,28 @@ def bot(op):
                   Ticket = cl.reissueGroupTicket(msg.to)
     #----------------------Fungsi Join Group Finish---------------#
 #========================================
-            elif "Spam @" in msg.text:
-                _name = msg.text.replace("Spam @","")
+            elif wait["SetKey"]+"Spam @" in msg.text:
+                _name = msg.text.replace(wait["SetKey"]+"Spam @","")
                 _nametarget = _name.rstrip(' ')
                 gs = cl.getGroup(msg.to)
                 for g in gs.members:
                     if _nametarget == g.displayName:
-                       cl.sendText(g.mid,"Spammed")
-                       ki.sendText(g.mid,"Spammed")
-                       kc.sendText(g.mid,"Spammed")
-                       ks.sendText(g.mid,"Spammed")
-                       kk.sendText(g.mid,"Spammed")
-                       kt.sendText(g.mid,"Spammed")
-                       ct.sendText(msg.to,"done spam bossque")
+                       cl.sendText(msg.to,"Start Spam")
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(msg.to, "Spam Succes")
             elif msg.text.lower() == 'responsename':
               if msg.from_ in admin:
                 profile = cl.getProfile()
@@ -3187,11 +3203,11 @@ def bot(op):
                     cu = cl.channel.getCover(mid)
                     path = str(cu)
                     cl.sendImageWithUrl(msg.to, path)
-	    elif "Pap set:" in msg.text:
-                wait["Pap"] = msg.text.replace("Pap set:","")
+            elif wait["SetKey"]+"Set pap:" in msg.text:
+                wait["Pap"] = msg.text.replace(wait["SetKey"]+"Set pap:","")
                 cl.sendText(msg.to,"Pap Has Ben Set To")
-            elif msg.text in [".Pap","Pap"]:
-                cl.sendImageWithURL(msg.to,wait["Pap"])
+            elif msg.text in [wait["SetKey"]+".Pap",wait["SetKey"]+"Pap"]:
+                cl.sendImageWithURL(msg.to,wait["Pap"]
 				    
 	    elif "Vn" in msg.text:
                 say = msg.text.replace("Vn","")
@@ -3679,7 +3695,15 @@ def bot(op):
                 eltime = time.time()
                 van = "Bot has been running for "+waktu(eltime)
                 cl.sendText(msg.to,van)
+            elif msg.text in ["Simisimi on","Simisimi:on"]:
+                settings["simiSimi"][msg.to] = True
+                cl.sendText(msg.to," Simisimi Di Aktifkan")
+                
+            elif msg.text in ["Simisimi off","Simisimi:off"]:
+                settings["simiSimi"][msg.to] = False
+                cl.sendText(msg.to,"Simisimi Di Nonaktifkan")
 
+#--------------------------------------------------------
             elif "Image " in msg.text:
                 search = msg.text.replace("Image ","")
                 url = 'https://www.google.com/search?espv=2&biw=1366&bih=667&tbm=isch&oq=kuc&aqs=mobile-gws-lite.0.0l5&q=' + search
@@ -3691,7 +3715,22 @@ def bot(op):
                 try:
                     cl.sendImageWithURL(msg.to,path)
                 except:
-                    pass           
+                    pass
+#--------------------------------------------------------
+            elif "Youtubesearch: " in msg.text:
+                    query = msg.text.replace("Youtube ","")
+                    with requests.session() as s:
+                        s.headers['user-agent'] = 'Mozilla/5.0'
+                        url = 'http://www.youtube.com/results'
+                        params = {'search_query': query}
+                        r = s.get(url, params=params)
+                        soup = BeautifulSoup(r.content, 'html.parser')
+                        hasil = ""
+                        for a in soup.select('.yt-lockup-title > a[title]'):
+                            if '&list=' not in a['href']:
+                                hasil += ''.join((a['title'],'\nUrl : http://www.youtube.com' + a['href'],'\n\n'))
+                        cl.sendText(msg.to,hasil)
+                        print '[Command] Youtube Search'          
 
             elif "Id@en" in msg.text:
                 bahasa_awal = 'id'
@@ -3995,50 +4034,105 @@ def bot(op):
                 jawaban = random.choice(jawab)
                 cl.sendText(msg.to,jawaban)
 #---------------------------------- SONG ---------------------------------------------------------------------- SONG ------------------------------------
-            elif "/lirik " in msg.text.lower():
-                songname = msg.text.replace("/lirik ","")
-                params = {"songname":songname}
-                r = requests.get('https://ide.fdlrcn.com/workspace/yumi-apis/joox?' + urllib.urlencode(params))
-                data = r.text
-                data = json.loads(data)
-                for song in data:
-                    cl.sendText(msg.to,song[5])
-                    print "[Command] Lirik"
-
-            elif "/lagu " in msg.text.lower():
-                songname = msg.text.replace("/lagu ","")
-                params = {"songname":songname}
-                r = requests.get('https://ide.fdlrcn.com/workspace/yumi-apis/joox?' + urllib.urlencode(params))
-                data = r.text
-                data = json.loads(data)
-                for song in data:
-                    cl.sendText(msg.to,"Judul : " + song[0] + "\nDurasi : " + song[1])
-                    cl.sendAudioWithURL(msg.to,song[3])
-                    print "[Command] Lagu"
+	    elif "/musik " in msg.text:
+					songname = msg.text.replace("/musik ","")
+					params = {"songname": songname}
+					r = requests.get('http://ide.fdlrcn.com/workspace/yumi-apis/joox?' + urllib.urlencode(params))
+					data = r.text
+					data = json.loads(data)
+					for song in data:
+						abc = song[3].replace('https://','http://')
+						cl.sendText(msg.to, "Title : " + song[0] + "\nLength : " + song[1] + "\nLink download : " + song[4])
+						cl.sendText(msg.to, "Lagu " + song[0] + "\nSedang Di Prosses... Tunggu Sebentar ^_^ ")
+						cl.sendAudioWithURL(msg.to,abc)
+						cl.sendText(msg.to, "Selamat Mendengarkan Lagu " + song[0])
+	
+            elif '/lirik ' in msg.text.lower():
+                try:
+                    songname = msg.text.lower().replace('/lirik ','')
+                    params = {'songname': songname}
+                    r = requests.get('http://ide.fdlrcn.com/workspace/yumi-apis/joox?' + urllib.urlencode(params))
+                    data = r.text
+                    data = json.loads(data)
+                    for song in data:
+                        hasil = 'Lyric Lagu ('
+                        hasil += song[0]
+                        hasil += ')\n\n'
+                        hasil += song[5]
+                        cl.sendText(msg.to, hasil)
+                except Exception as wak:
+                        cl.sendText(msg.to, str(wak))
+                        
+	    elif "/musrik " in msg.text:
+					songname = msg.text.replace("/musrik ","")
+					params = {"songname": songname}
+					r = requests.get('http://ide.fdlrcn.com/workspace/yumi-apis/joox?' + urllib.urlencode(params))
+					data = r.text
+					data = json.loads(data)
+					for song in data:
+						abc = song[3].replace('https://','http://')
+						hasil = 'Lyric Lagu ('
+						hasil += song[0]
+						hasil += ')\n\n'
+						hasil += song[5]
+						cl.sendText(msg.to, "Lagu " + song[0] + "\nSedang Di Prosses... Tunggu Sebentar ^_^ ")
+						cl.sendAudioWithURL(msg.to,abc)
+						cl.sendText(msg.to, "Title : " + song[0] + "\nLength : " + song[1] + "\nLink download : " + song[4] +"\n\n" + hasil)
+						cl.sendText(msg.to, "Selamat Mendengarkan Lagu " + song[0])
 #----------------------------------------------------------------------------
+            elif "/berapakah " in msg.text:
+                apk = msg.text.replace("/berapakah ","")
+                rnd = ['10%','20%','30%','40%','50%','60%','70%','80%','90%','100%','0%']
+                p = random.choice(rnd)
+                lang = 'id'
+                tts = gTTS(text=p, lang=lang)
+                tts.save("hasil.mp3")
+                cl.sendAudio(msg.to,"hasil.mp3")
+
+            elif "/kapan " in msg.text:
+                apk = msg.text.replace("/kapan ","")
+                rnd = ["kapan kapan","besok","satu abad lagi","Hari ini","Tahun depan","Minggu depan","Bulan depan","Sebentar lagi","Tidak Akan Pernah"]
+                p = random.choice(rnd)
+                lang = 'id'
+                tts = gTTS(text=p, lang=lang)
+                tts.save("hasil.mp3")
+                cl.sendAudio(msg.to,"hasil.mp3")
 #--------------------------------- INSTAGRAM --------------------------------
-            elif "/ig " in msg.text.lower():
-                arg = msg.text.split(' ');
-                nk0 = msg.text.replace("/ig ","")
-                nk1 = nk0.rstrip('  ')
-                if len(arg) > 1:
-                    proc = subprocess.Popen('curl -s https://www.instagram.com/'+nk1+'/?__a=1',shell=True, stdout=subprocess.PIPE)
-                    x = proc.communicate()[0]
-                    parsed_json = json.loads(x)
-                    if(len(x) > 10):
-                        username = (parsed_json['user']['username'])
-                        fullname = (parsed_json['user']['full_name'])
-                        followers = (parsed_json['user']['followed_by']['count'])
-                        following = (parsed_json['user']['follows']['count'])
-                        media = (parsed_json['user']['media']['count'])
-                        bio = (parsed_json['user']['biography'])
-                        url = (parsed_json['user']['external_url'])
-                        cl.sendText(msg.to,"Profile "+username+"\n\nUsername : "+username+"\nFull Name : "+fullname+"\nFollowers : "+str(followers)+"\nFollowing : "+str(following))
-                        print '[Command] Instagram'
-                    else:
-                        cl.sendText(msg.to,"Not Found...")
-                else:
-                    cl.sendText(msg.to,"Contoh /ig hairu.ones")
+            elif '/ig ' in msg.text.lower():
+                try:
+                    instagram = msg.text.lower().replace("/ig ","")
+                    html = requests.get('https://www.instagram.com/' + instagram + '/?')
+                    soup = BeautifulSoup(html.text, 'html.parser')
+                    data = soup.find_all('meta', attrs={'property':'og:description'})
+                    text = data[0].get('content').split()
+                    data1 = soup.find_all('meta', attrs={'property':'og:image'})
+                    text1 = data1[0].get('content').split()
+                    user = "Name: " + text[-2] + "\n"
+                    user1 = "Username: " + text[-1] + "\n"
+                    followers = "Followers: " + text[0] + "\n"
+                    following = "Following: " + text[2] + "\n"
+                    post = "Post: " + text[4] + "\n"
+                    link = "Link: " + "https://www.instagram.com/" + instagram
+                    detail = "========INSTAGRAM INFO ========\n"
+                    details = "\n========INSTAGRAM INFO ========"
+                    cl.sendText(msg.to, detail + user + user1 + followers + following + post + link + details)
+                    cl.sendImageWithURL(msg.to, text1[0])
+                except Exception as njer:
+                	cl.sendText(msg.to, str(njer))
+
+#--------------------------[Youtube]---------------------
+            elif 'Youtubevideo: ' in msg.text:
+                try:
+                    textToSearch = (msg.text).replace('Youtube ', "").strip()
+                    query = urllib.quote(textToSearch)
+                    url = "https://www.youtube.com/results?search_query=" + query
+                    response = urllib2.urlopen(url)
+                    html = response.read()
+                    soup = BeautifulSoup(html, "html.parser")
+                    results = soup.find(attrs={'class':'yt-uix-tile-link'})
+                    cl.sendText(msg.to,'https://www.youtube.com' + results['href'])
+                except:
+                    cl.sendText(msg.to,"Could not find it")
 #----------------------------------------------------------------------------
 #--------------------------------- YOUTUBE ----------------------------------
             elif "/youtube " in msg.text:
