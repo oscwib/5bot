@@ -3155,12 +3155,12 @@ def bot(op):
                         kc.acceptGroupInvitationByTicket(msg.to,Ticket)
                         time.sleep(0.2)
 			kc.sendText(msg.to,"hadir sayang")
-                        ko.acceptGroupInvitationByTicket(msg.to,Ticket)
+                        ka.acceptGroupInvitationByTicket(msg.to,Ticket)
                         time.sleep(0.2)
-			ko.sendText(msg.to,"aku juga sayang")
-                        ku.acceptGroupInvitationByTicket(msg.to,Ticket)
+			ka.sendText(msg.to,"aku juga sayang")
+                        ks.acceptGroupInvitationByTicket(msg.to,Ticket)
                         time.sleep(0.2)
-                        ku.sendText(msg.to,"aku disini yang")
+                        ks.sendText(msg.to,"aku disini yang")
                         G = cl.getGroup(msg.to)
                         G.preventJoinByTicket = True
                         cl.updateGroup(G)
@@ -3574,10 +3574,10 @@ def bot(op):
                     try:
 			kc.sendText(msg.to,"see you yang")
                         kc.leaveGroup(msg.to)
-			ko.sendText(msg.to,"makasih sayang")
-                        ko.leaveGroup(msg.to)
-			ku.sendText(msg.to,"dadah bebih")
-                        ku.leaveGroup(msg.to)
+			ka.sendText(msg.to,"makasih sayang")
+                        ka.leaveGroup(msg.to)
+			ks.sendText(msg.to,"dadah bebih")
+                        ks.leaveGroup(msg.to)
                     except:
                         pass
             elif msg.text in ["Bye _Second"]:
