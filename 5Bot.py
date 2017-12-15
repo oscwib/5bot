@@ -379,8 +379,9 @@ Fmid = kb.getProfile().mid
 Gmid = ko.getProfile().mid
 Hmid = ke.getProfile().mid
 Imid = ku.getProfile().mid
+Jmid = kt.getProfile().mid
 
-Bots=[mid,Amid,Bmid,Cmid,Dmid,Emid,Fmid,Gmid,Hmid,Imid,"u5427d8047ab127f5e237eaedd1f0b93b"]
+Bots=[mid,Amid,Bmid,Cmid,Dmid,Emid,Fmid,Gmid,Hmid,Imid,Jmid,"u5427d8047ab127f5e237eaedd1f0b93b"]
 admin=["u5427d8047ab127f5e237eaedd1f0b93b"]
 creator=["u5427d8047ab127f5e237eaedd1f0b93b"]
 wait = {
@@ -3071,6 +3072,42 @@ def bot(op):
                 gs = cl.getGroup(msg.to)
                 for g in gs.members:
                     if _nametarget == g.displayName:
+                       cl.sendText(g.mid,"Spammed")
+                       ki.sendText(g.mid,"Spammed")
+                       kc.sendText(g.mid,"Spammed")
+                       ks.sendText(g.mid,"Spammed")
+                       kk.sendText(g.mid,"Spammed")
+                       kt.sendText(g.mid,"Spammed")
+                       cl.sendText(g.mid,"Spammed")
+                       ki.sendText(g.mid,"Spammed")
+                       kc.sendText(g.mid,"Spammed")
+                       ks.sendText(g.mid,"Spammed")
+                       kk.sendText(g.mid,"Spammed")
+                       kt.sendText(g.mid,"Spammed")
+                       cl.sendText(g.mid,"Spammed")
+                       ki.sendText(g.mid,"Spammed")
+                       kc.sendText(g.mid,"Spammed")
+                       ks.sendText(g.mid,"Spammed")
+                       kk.sendText(g.mid,"Spammed")
+                       kt.sendText(g.mid,"Spammed")
+                       cl.sendText(g.mid,"Spammed")
+                       ki.sendText(g.mid,"Spammed")
+                       kc.sendText(g.mid,"Spammed")
+                       ks.sendText(g.mid,"Spammed")
+                       kk.sendText(g.mid,"Spammed")
+                       kt.sendText(g.mid,"Spammed")
+                       cl.sendText(g.mid,"Spammed")
+                       ki.sendText(g.mid,"Spammed")
+                       kc.sendText(g.mid,"Spammed")
+                       ks.sendText(g.mid,"Spammed")
+                       kk.sendText(g.mid,"Spammed")
+                       kt.sendText(g.mid,"Spammed")
+                       cl.sendText(g.mid,"Spammed")
+                       ki.sendText(g.mid,"Spammed")
+                       kc.sendText(g.mid,"Spammed")
+                       ks.sendText(g.mid,"Spammed")
+                       kk.sendText(g.mid,"Spammed")
+                       kt.sendText(g.mid,"Spammed")
                        cl.sendText(g.mid,"Spammed")
                        ki.sendText(g.mid,"Spammed")
                        kc.sendText(g.mid,"Spammed")
