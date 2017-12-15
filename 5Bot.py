@@ -407,6 +407,7 @@ wait = {
     "Protectgr":True,
     "likeOn":False,
     "welcomemsg":True,
+    "winvite":True,
     "Protectjoin":False,
     "Protectcancl":False,
     "protectionOn":True,
@@ -2269,6 +2270,11 @@ def bot(op):
                     for mi_d in wait["commentBlack"]:
                         mc += "" +cl.getContact(mi_d).displayName + "\n"
                     cl.sendText(msg.to,mc)
+		
+            elif msg.text in ["Invite user"]:
+              if msg.from_ in admin:
+                 wait["winvite"] = True
+                 cl.sendText(msg.to,"send contact")
                     
         #-------------Fungsi Jam on/off Start-------------------#            
             elif msg.text in ["Jam on"]:
