@@ -2337,10 +2337,6 @@ def bot(op):
                         mc += "" +cl.getContact(mi_d).displayName + "\n"
                     cl.sendText(msg.to,mc)
 		
-            elif msg.text in ["Invite user"]:
-              if msg.from_ in admin:
-                 wait["winvite"] = True
-                 cl.sendText(msg.to,"send contact")
                     
         #-------------Fungsi Jam on/off Start-------------------#            
             elif msg.text in ["Jam on"]:
