@@ -422,7 +422,6 @@ wait2 = {
     'ROM':{}
     }
 
-}
 
 settings = {
     "simiSimi":{}
