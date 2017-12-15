@@ -412,7 +412,7 @@ wait = {
     "atjointicket":True,
     "Pap":"http://kucingpedia.com/wp-content/uploads/2016/06/Gambar-Kucing-Gemuk-Lucu.jpg",
     "SetKey":".",
-    "spam":"Your Account Has Been Spammed
+    "spam":"Your Account Has Been Spammed",
     }
 
 wait2 = {
