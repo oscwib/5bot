@@ -393,7 +393,7 @@ wait = {
     'autoAdd':True,
     'message':"cie ngeadd yaa makasihh",
     "lang":"JP",
-    "comment":"cie ngeadd yaa makasihh",
+    "comment":"Nice kak",
     "commentOn":True,
     "welmsg":" Selamat Datang di ",
     "commentBlack":{},
