@@ -626,13 +626,8 @@ def sendImageWithURL(self, to_, url):
             raise e
 
 def sendAudio(self, to_, path):
-        M = Message()
-        M.text = None
-        M.to = to_
-        M.contentMetadata = None
-        M.contentPreview = None
-        M.contentType = 3
-        M_id = self._client.sendMessage(0,M).id
+        M = Message(to=to_, text=None, contentType = 3)
+        M_id = self.Talk.client.sendMessage(0,M).id
         files = {
             'file': open(path, 'rb'),
         }
@@ -644,32 +639,49 @@ def sendAudio(self, to_, path):
             'ver': '1.0',
         }
         data = {
+            'params': json.dumps(params)            
+        }       
+
+        r = self.post_content('https://os.line.naver.jp/talk/m/upload.nhn', data=data, files=files)
+        print r
+        if r.status_code != 201:
+            raise Exception('Upload audio failure.')    
+
+
+def sendAudioWithURL(self, to_, url):
+      path = '%s/pythonLine-%i.data' % (tempfile.gettempdir(), randint(0, 9))
+      r = requests.get(url, stream=True)
+      if r.status_code == 200:
+         with open(path, 'w') as f:
+            shutil.copyfileobj(r.raw, f)
+      else:
+         raise Exception('Download audio failure.')
+      try:
+         self.sendAudio(to_, path)
+      except Exception as e:
+            raise e
+            
+def sendVoice(self, to_, path):
+        M = Message(to=to_, text=None, contentType = 3)
+        M.contentPreview = None
+        M_id = self._client.sendMessage(0,M).id
+        files = {
+            'file': open(path, 'rb'),
+        }
+        params = {
+            'name': 'voice_message',
+            'oid': M_id,
+            'size': len(open(path, 'rb').read()),
+            'type': 'audio',
+            'ver': '1.0',
+        }
+        data = {
             'params': json.dumps(params)
         }
         r = self.post_content('https://os.line.naver.jp/talk/m/upload.nhn', data=data, files=files)
         if r.status_code != 201:
-            raise Exception('Upload audio failure.')
+            raise Exception('Upload voice failure.')
         return True
-
-def sendAudioWithURL(self, to_, url):
-        path = self.downloadFileWithURL(url)
-        try:
-            self.sendAudio(to_, path)
-        except Exception as e:
-            raise Exception(e)
-
-def sendAudioWithUrl(self, to_, url):
-        path = '%s/pythonLine-%1.data' % (tempfile.gettempdir(), randint(0, 9))
-        r = requests.get(url, stream=True, verify=False)
-        if r.status_code == 200:
-           with open(path, 'w') as f:
-              shutil.copyfileobj(r.raw, f)
-        else:
-           raise Exception('Download audio failure.')
-        try:
-            self.sendAudio(to_, path)
-        except Exception as e:
-            raise e
 	
 def downloadFileWithURL(self, fileUrl):
         saveAs = '%s/pythonLine-%i.data' % (tempfile.gettempdir(), randint(0, 9))
