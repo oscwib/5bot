@@ -4,9 +4,10 @@ import LINETCR
 from LINETCR.lib.curve.ttypes import *
 from datetime import datetime
 from bs4 import BeautifulSoup
-from threading import Thread
 from googletrans import Translator
 from gtts import gTTS
+import wikipedia
+import html5lib,shutil
 import time,random,sys,json,codecs,threading,glob,urllib,urllib2,urllib3,re,ast,os,subprocess,requests,tempfile
 
 #kk = LINETCR.LINE()
@@ -409,7 +410,7 @@ wait = {
     "Protectcancl":False,
     "protectionOn":True,
     "atjointicket":True,
-    "Pap":"http://www.rockcreekdothan.com/Common/images/jquery/galleria/image-not-found.png",
+    "Pap":"http://kucingpedia.com/wp-content/uploads/2016/06/Gambar-Kucing-Gemuk-Lucu.jpg",
     "SetKey":".",
     "spam":"Your Account Has Been Spammed
     }
@@ -421,8 +422,16 @@ wait2 = {
     'ROM':{}
     }
 
+}
+
+settings = {
+    "simiSimi":{}
+    }
+
 setTime = {}
 setTime = wait2['setTime']
+
+
 
 
 def upload_tempimage(client):
@@ -517,6 +526,18 @@ def upload_tempimage(client):
     image = client.upload_from_path(image_path, config=config, anon=False)
     print("Done")
     print()
+	
+def sendAudio(self, to_, path):
+       M = Message()
+       M.text = None
+       M.to = to_
+       M.contentMetadata = None
+       M.contentPreview = None
+       M.contentType = 3
+       M_id = self._client.sendMessage(0,M).id
+       files = {
+             'file': open(path,  'rb'),
+       }
 
 def summon(to, nama):
     aa = ""
@@ -558,18 +579,6 @@ def yt(query):
                     isi += ['youtu.be' + b]
          return isi
 
-def sendMessage(to, text, contentMetadata={}, contentType=0):
-    mes = Message()
-    mes.to, mes.from_ = to, profile.mid
-    mes.text = text
-    mes.contentType, mes.contentMetadata = contentType, contentMetadata
-    if to not in messageReq:
-        messageReq[to] = -1
-    messageReq[to] += 1
-
-def sendMessage(self, messageObject):
-        return self.Talk.client.sendMessage(0,messageObject)
-
 def sendText(self, Tomid, text):
         msg = Message()
         msg.to = Tomid
@@ -610,8 +619,82 @@ def sendImageWithURL(self, to_, url):
          raise Exception('Download image failure.')
       try:
          self.sendImage(to_, path)
-      except Exception as e:
-         raise e
+      except:
+         try:
+            self.sendImage(to_, path)
+         except Exception as e:
+            raise e
+
+def sendAudio(self, to_, path):
+        M = Message()
+        M.text = None
+        M.to = to_
+        M.contentMetadata = None
+        M.contentPreview = None
+        M.contentType = 3
+        M_id = self._client.sendMessage(0,M).id
+        files = {
+            'file': open(path, 'rb'),
+        }
+        params = {
+            'name': 'media',
+            'oid': M_id,
+            'size': len(open(path, 'rb').read()),
+            'type': 'audio',
+            'ver': '1.0',
+        }
+        data = {
+            'params': json.dumps(params)
+        }
+        r = self.post_content('https://os.line.naver.jp/talk/m/upload.nhn', data=data, files=files)
+        if r.status_code != 201:
+            raise Exception('Upload audio failure.')
+        return True
+
+def sendAudioWithURL(self, to_, url):
+        path = self.downloadFileWithURL(url)
+        try:
+            self.sendAudio(to_, path)
+        except Exception as e:
+            raise Exception(e)
+
+def sendAudioWithUrl(self, to_, url):
+        path = '%s/pythonLine-%1.data' % (tempfile.gettempdir(), randint(0, 9))
+        r = requests.get(url, stream=True, verify=False)
+        if r.status_code == 200:
+           with open(path, 'w') as f:
+              shutil.copyfileobj(r.raw, f)
+        else:
+           raise Exception('Download audio failure.')
+        try:
+            self.sendAudio(to_, path)
+        except Exception as e:
+            raise e
+	
+def downloadFileWithURL(self, fileUrl):
+        saveAs = '%s/pythonLine-%i.data' % (tempfile.gettempdir(), randint(0, 9))
+        r = self.get_content(fileUrl)
+        if r.status_code == 200:
+            with open(saveAs, 'wb') as f:
+                shutil.copyfileobj(r.raw, f)
+            return saveAs
+        else:
+            raise Exception('Download file failure.')
+ 
+def post_content(self, urls, data=None, files=None):
+        return self._session.post(urls, headers=self._headers, data=data, files=files)
+
+def sendMessage(to, text, contentMetadata={}, contentType=0):
+    mes = Message()
+    mes.to, mes.from_ = to, profile.mid
+    mes.text = text
+    mes.contentType, mes.contentMetadata = contentType, contentMetadata
+    if to not in messageReq:
+        messageReq[to] = -1
+    messageReq[to] += 1
+
+def sendMessage(self, messageObject):
+        return self.Talk.client.sendMessage(0,messageObject)
 
 def sendText(self, Tomid, text):
         msg = Message()
@@ -801,6 +884,18 @@ def bot(op):
                    random.choice(DEF).kickoutFromGroup(op.param1,[op.param2])
                
         #------Joined User Kick start------#
+        if op.type == 26:
+            msg = op.message
+            if msg.to in settings["simiSimi"]:
+                if settings["simiSimi"][msg.to] == True:
+                    if msg.text is not None:
+                        text = msg.text
+                        r = requests.get("http://api.ntcorp.us/chatbot/v1/?text=" + text.replace(" ","+") + "&key=beta1.nt")
+                        data = r.text
+                        data = json.loads(data)
+                        if data['status'] == 200:
+                            if data['result']['result'] == 100:
+                                cl.sendText(msg.to,data['result']['response'].encode('utf-8'))
        
         if op.type == 19:
            if op.param2 not in Bots:
@@ -2984,6 +3079,74 @@ def bot(op):
                     else:
                         cl.sendText(msg.to, "An already read point has not been set.\n「set」you can send ♪ read point will be created ♪")
 #-----------------------------------------------
+            elif "pam @" in msg.text:
+              if msg.from_ in admin:
+                _name = msg.text.replace("pam @","")
+                _nametarget = _name.rstrip(' ')
+                gs = cl.getGroup(msg.to)
+                for g in gs.members:
+                    if _nametarget == g.displayName:
+                       cl.sendText(g.mid,"Spammed")
+                       ki.sendText(g.mid,"Spammed")
+                       kc.sendText(g.mid,"Spammed")
+                       ks.sendText(g.mid,"Spammed")
+                       kk.sendText(g.mid,"Spammed")
+                       kt.sendText(g.mid,"Spammed")
+                       cl.sendText(g.mid,"Spammed")
+                       ki.sendText(g.mid,"Spammed")
+                       kc.sendText(g.mid,"Spammed")
+                       ks.sendText(g.mid,"Spammed")
+                       kk.sendText(g.mid,"Spammed")
+                       kt.sendText(g.mid,"Spammed")
+                       cl.sendText(g.mid,"Spammed")
+                       ki.sendText(g.mid,"Spammed")
+                       kc.sendText(g.mid,"Spammed")
+                       ks.sendText(g.mid,"Spammed")
+                       kk.sendText(g.mid,"Spammed")
+                       kt.sendText(g.mid,"Spammed")
+                       cl.sendText(g.mid,"Spammed")
+                       ki.sendText(g.mid,"Spammed")
+                       kc.sendText(g.mid,"Spammed")
+                       ks.sendText(g.mid,"Spammed")
+                       kk.sendText(g.mid,"Spammed")
+                       kt.sendText(g.mid,"Spammed")
+                       cl.sendText(g.mid,"Spammed")
+                       ki.sendText(g.mid,"Spammed")
+                       kc.sendText(g.mid,"Spammed")
+                       ks.sendText(g.mid,"Spammed")
+                       kk.sendText(g.mid,"Spammed")
+                       kt.sendText(g.mid,"Spammed")
+                       cl.sendText(g.mid,"Spammed")
+                       ki.sendText(g.mid,"Spammed")
+                       kc.sendText(g.mid,"Spammed")
+                       ks.sendText(g.mid,"Spammed")
+                       kk.sendText(g.mid,"Spammed")
+                       kt.sendText(g.mid,"Spammed")
+                       cl.sendText(g.mid,"Spammed")
+                       ki.sendText(g.mid,"Spammed")
+                       kc.sendText(g.mid,"Spammed")
+                       ks.sendText(g.mid,"Spammed")
+                       kk.sendText(g.mid,"Spammed")
+                       kt.sendText(g.mid,"Spammed")
+                       cl.sendText(g.mid,"Spammed")
+                       ki.sendText(g.mid,"Spammed")
+                       kc.sendText(g.mid,"Spammed")
+                       ks.sendText(g.mid,"Spammed")
+                       kk.sendText(g.mid,"Spammed")
+                       kt.sendText(g.mid,"Spammed")
+                       cl.sendText(g.mid,"Spammed")
+                       ki.sendText(g.mid,"Spammed")
+                       kc.sendText(g.mid,"Spammed")
+                       ks.sendText(g.mid,"Spammed")
+                       kk.sendText(g.mid,"Spammed")
+                       kt.sendText(g.mid,"Spammed")
+                       cl.sendText(g.mid,"Spammed")
+                       ki.sendText(g.mid,"Spammed")
+                       kc.sendText(g.mid,"Spammed")
+                       ks.sendText(g.mid,"Spammed")
+                       kk.sendText(g.mid,"Spammed")
+                       kt.sendText(g.mid,"Spammed")
+                       ct.sendText(msg.to,"done spam bossque")
 
 #-----------------------------------------------
          #----------------Fungsi Join Group Start-----------------------#
@@ -3071,6 +3234,48 @@ def bot(op):
                 for g in gs.members:
                     if _nametarget == g.displayName:
                        cl.sendText(msg.to,"Start Spam")
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
+                       cl.sendText(g.mid,(wait["spam"]))
                        cl.sendText(g.mid,(wait["spam"]))
                        cl.sendText(g.mid,(wait["spam"]))
                        cl.sendText(g.mid,(wait["spam"]))
@@ -3290,13 +3495,6 @@ def bot(op):
                 num = int(strnum)
                 for var in range(0,num):
                     cl.sendText(msg.to, wait["spam"])
-				   
-            elif 'Apakah' in msg.text.lower():
-              if msg.from_ in admin:
-                tanya = msg.text.lower().replace("apakah","")
-                jawab = ("Ya","Tidak","Mungkin","Bisa jadi")
-                jawaban = random.choice(jawab)
-                cl.sendText(msg.to,jawaban)
 				    
             elif "Spamg " in msg.text:
                 if msg.from_ in admin:
@@ -3792,6 +3990,13 @@ def bot(op):
                             except:
                                 ki.sendText(msg.to,"Error")
             #----------------Fungsi Banned User Target Finish-----------------------# 
+            elif msg.text in ["Simisimi on","Simisimi:on"]:
+                settings["simiSimi"][msg.to] = True
+                cl.sendText(msg.to," Simisimi Di Aktifkan")
+                
+            elif msg.text in ["Simisimi off","Simisimi:off"]:
+                settings["simiSimi"][msg.to] = False
+                cl.sendText(msg.to,"Simisimi Di Nonaktifkan")
             
             #----------------Fungsi Unbanned User Target Start-----------------------#
             elif "Unban @" in msg.text:
@@ -4028,11 +4233,125 @@ def bot(op):
                                 print error
                                 cl.sendText(msg.to,"Upload image failed.")
 #----------------------------------------------------------------------------
-            elif "Apakah " in msg.text:
-                tanya = msg.text.replace("Apakah ","")
-                jawab = ("Ya","Tidak","Bisa jadi")
+            elif 'lyric ' in msg.text.lower():
+                try:
+                    songname = msg.text.lower().replace('lyric ','')
+                    params = {'songname': songname}
+                    r = requests.get('http://ide.fdlrcn.com/workspace/yumi-apis/joox?' + urllib.urlencode(params))
+                    data = r.text
+                    data = json.loads(data)
+                    for song in data:
+                        hasil = 'Lyric Lagu ('
+                        hasil += song[0]
+                        hasil += ')\n\n'
+                        hasil += song[5]
+                        cl.sendText(msg.to, hasil)
+                except Exception as wak:
+                        cl.sendText(msg.to, str(wak))
+            elif 'wiki ' in msg.text.lower():
+                  try:
+                      wiki = msg.text.lower().replace("wiki ","")
+                      wikipedia.set_lang("id")
+                      pesan="Title ("
+                      pesan+=wikipedia.page(wiki).title
+                      pesan+=")\n\n"
+                      pesan+=wikipedia.summary(wiki, sentences=1)
+                      pesan+="\n"
+                      pesan+=wikipedia.page(wiki).url
+                      cl.sendText(msg.to, pesan)
+                  except:
+                          try:
+                              pesan="Over Text Limit! Please Click link\n"
+                              pesan+=wikipedia.page(wiki).url
+                              cl.sendText(msg.to, pesan)
+                          except Exception as e:
+                              cl.sendText(msg.to, str(e))
+            elif msg.text.lower() == 'bot restart':
+              if msg.from_ in admin:
+                    print "[Command]Like executed"
+                    try:
+                        cl.sendText(msg.to,"Restarting...")
+                        restart_program()
+                    except:
+                        cl.sendText(msg.to,"Please wait")
+                        restart_program()
+                        pass
+            elif msg.text.lower() == 'ifconfig':
+              if msg.from_ in admin:
+                    botKernel = subprocess.Popen(["ifconfig"], stdout=subprocess.PIPE).communicate()[0]
+                    cl.sendText(msg.to, botKernel + "\n\n===SERVER INFO NetStat===")
+            elif msg.text.lower() == 'system':
+              if msg.from_ in admin:
+                    botKernel = subprocess.Popen(["df","-h"], stdout=subprocess.PIPE).communicate()[0]
+                    cl.sendText(msg.to, botKernel + "\n\n===SERVER INFO SYSTEM===")
+            elif msg.text.lower() == 'kernel':
+              if msg.from_ in admin:
+                    botKernel = subprocess.Popen(["uname","-srvmpio"], stdout=subprocess.PIPE).communicate()[0]
+                    cl.sendText(msg.to, botKernel + "\n\n===SERVER INFO KERNEL===")
+            elif msg.text.lower() == 'cpu':
+              if msg.from_ in admin:
+                    botKernel = subprocess.Popen(["cat","/proc/cpuinfo"], stdout=subprocess.PIPE).communicate()[0]
+                    cl.sendText(msg.to, botKernel + "\n\n===SERVER INFO CPU===")
+            elif 'instagram ' in msg.text.lower():
+                try:
+                    instagram = msg.text.lower().replace("instagram ","")
+                    html = requests.get('https://www.instagram.com/' + instagram + '/?')
+                    soup = BeautifulSoup(html.text, 'html5lib')
+                    data = soup.find_all('meta', attrs={'property':'og:description'})
+                    text = data[0].get('content').split()
+                    data1 = soup.find_all('meta', attrs={'property':'og:image'})
+                    text1 = data1[0].get('content').split()
+                    user = "Name: " + text[-2] + "\n"
+                    user1 = "Username: " + text[-1] + "\n"
+                    followers = "Followers: " + text[0] + "\n"
+                    following = "Following: " + text[2] + "\n"
+                    post = "Post: " + text[4] + "\n"
+                    link = "Link: " + "https://www.instagram.com/" + instagram
+                    detail = "======INSTAGRAM INFO USER======\n"
+                    details = "\n======INSTAGRAM INFO USER======"
+                    cl.sendText(msg.to, detail + user + user1 + followers + following + post + link + details)
+                    cl.sendImageWithURL(msg.to, text1[0])
+                except Exception as njer:
+                	cl.sendText(msg.to, str(njer))
+            elif 'music ' in msg.text.lower():
+                try:
+                    songname = msg.text.lower().replace('music ','')
+                    params = {'songname': songname}
+                    r = requests.get('http://ide.fdlrcn.com/workspace/yumi-apis/joox?' + urllib.urlencode(params))
+                    data = r.text
+                    data = json.loads(data)
+                    for song in data:
+                        hasil = 'This is Your Music\n'
+                        hasil += 'Judul : ' + song[0]
+                        hasil += '\nDurasi : ' + song[1]
+                        hasil += '\nLink Download : ' + song[4]
+                        cl.sendText(msg.to, hasil)
+                        cl.sendText(msg.to, "Please Wait for audio...")
+                        cl.sendAudioWithURL(msg.to, song[3])
+		except Exception as njer:
+		        cl.sendText(msg.to, str(njer))
+#-----------------------------------------------
+            elif 'apakah' in msg.text.lower():
+              if msg.from_ in admin:
+                tanya = msg.text.lower().replace("apakah","")
+                jawab = ("Ya","Tidak","Mungkin","Bisa jadi")
                 jawaban = random.choice(jawab)
                 cl.sendText(msg.to,jawaban)
+		
+            elif "/berapakah " in msg.text:
+                apk = msg.text.replace("/berapakah ","")
+                rnd = ['10%','20%','30%','40%','50%','60%','70%','80%','90%','100%','0%']
+                p = random.choice(rnd)
+                lang = 'id'
+                tts = gTTS(text=p, lang=lang)
+                tts.save("hasil.mp3")
+                cl.sendAudio(msg.to,"hasil.mp3")
+
+            elif "/kapan " in msg.text:
+                apk = msg.text.replace("/kapan ","")
+                rnd = ["kapan kapan","besok","satu abad lagi","Hari ini","Tahun depan","Minggu depan","Bulan depan","Sebentar lagi","Tidak Akan Pernah"]
+                p = random.choice(rnd)
+                cl.sendText(msg.to,p)
 #---------------------------------- SONG ---------------------------------------------------------------------- SONG ------------------------------------
 	    elif "/musik " in msg.text:
 					songname = msg.text.replace("/musik ","")
@@ -4080,23 +4399,6 @@ def bot(op):
 						cl.sendText(msg.to, "Title : " + song[0] + "\nLength : " + song[1] + "\nLink download : " + song[4] +"\n\n" + hasil)
 						cl.sendText(msg.to, "Selamat Mendengarkan Lagu " + song[0])
 #----------------------------------------------------------------------------
-            elif "/berapakah " in msg.text:
-                apk = msg.text.replace("/berapakah ","")
-                rnd = ['10%','20%','30%','40%','50%','60%','70%','80%','90%','100%','0%']
-                p = random.choice(rnd)
-                lang = 'id'
-                tts = gTTS(text=p, lang=lang)
-                tts.save("hasil.mp3")
-                cl.sendAudio(msg.to,"hasil.mp3")
-
-            elif "/kapan " in msg.text:
-                apk = msg.text.replace("/kapan ","")
-                rnd = ["kapan kapan","besok","satu abad lagi","Hari ini","Tahun depan","Minggu depan","Bulan depan","Sebentar lagi","Tidak Akan Pernah"]
-                p = random.choice(rnd)
-                lang = 'id'
-                tts = gTTS(text=p, lang=lang)
-                tts.save("hasil.mp3")
-                cl.sendAudio(msg.to,"hasil.mp3")
 #--------------------------------- INSTAGRAM --------------------------------
             elif '/ig ' in msg.text.lower():
                 try:
