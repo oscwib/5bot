@@ -435,30 +435,6 @@ setTime = wait2['setTime']
 
 
 
-def upload_tempimage(client):
-     '''
-         Upload a picture of a kitten. We don't ship one, so get creative!
-     '''
-     config = {
-         'album': album,
-         'name':  'bot auto upload',
-         'title': 'bot auto upload',
-         'description': 'bot auto upload'
-     }
-
-     print("Uploading image... ")
-     image = client.upload_from_path(image_path, config=config, anon=False)
-     print("Done")
-     print()
-
-def restart_program():
-    python = sys.executable
-    os.execl(python, python, * sys.argv) 
-def waktu(secs):
-    mins, secs = divmod(secs,60)
-    hours, mins = divmod(mins,60)
-    return '%02d hour %02d minute %02d seconds' % (hours, mins, secs)
-
 def download_page(url):
     version = (3,0)
     cur_version = sys.version_info
@@ -513,20 +489,139 @@ def _images_get_all_items(page):
     return items
 
 def upload_tempimage(client):
-    '''
-        Upload a picture of a kitten. We don't ship one, so get creative!
-    '''
-    config = {
-        'album': album,
-        'name':  'bot auto upload',
-        'title': 'bot auto upload',
-        'description': 'bot auto upload'
-    }
+     '''
+         Upload a picture of a kitten. We don't ship one, so get creative!
+     '''
+     config = {
+         'album': album,
+         'name':  'bot auto upload',
+         'title': 'bot auto upload',
+         'description': 'bot auto upload'
+     }
 
-    print("Uploading image... ")
-    image = client.upload_from_path(image_path, config=config, anon=False)
-    print("Done")
-    print()
+     print("Uploading image... ")
+     image = client.upload_from_path(image_path, config=config, anon=False)
+     print("Done")
+     print()
+
+     return image
+     
+def sendAudio(self, to_, path):
+       M = Message()
+       M.text = None
+       M.to = to_
+       M.contentMetadata = None
+       M.contentPreview = None
+       M.contentType = 3
+       M_id = self._client.sendMessage(0,M).id
+       files = {
+             'file': open(path,  'rb'),
+       }
+     
+def sendImage(self, to_, path):
+      M = Message(to=to_, text=None, contentType = 1)
+      M.contentMetadata = None
+      M.contentPreview = None
+      M2 = self._client.sendMessage(0,M)
+      M_id = M2.id
+      files = {
+         'file': open(path, 'rb'),
+      }
+      params = {
+         'name': 'media',
+         'oid': M_id,
+         'size': len(open(path, 'rb').read()),
+         'type': 'image',
+         'ver': '1.0',
+      }
+      data = {
+         'params': json.dumps(params)
+      }
+      r = self.post_content('https://obs-sg.line-apps.com/talk/m/upload.nhn', data=data, files=files)
+      if r.status_code != 201:
+         raise Exception('Upload image failure.')
+      return True
+
+
+def sendImageWithURL(self, to_, url):
+      path = '%s/pythonLine-%i.data' % (tempfile.gettempdir(), randint(0, 9))
+      r = requests.get(url, stream=True)
+      if r.status_code == 200:
+         with open(path, 'w') as f:
+            shutil.copyfileobj(r.raw, f)
+      else:
+         raise Exception('Download image failure.')
+      try:
+         self.sendImage(to_, path)
+      except:
+         try:
+            self.sendImage(to_, path)
+         except Exception as e:
+            raise e
+
+def sendAudio(self, to_, path):
+        M = Message()
+        M.text = None
+        M.to = to_
+        M.contentMetadata = None
+        M.contentPreview = None
+        M.contentType = 3
+        M_id = self._client.sendMessage(0,M).id
+        files = {
+            'file': open(path, 'rb'),
+        }
+        params = {
+            'name': 'media',
+            'oid': M_id,
+            'size': len(open(path, 'rb').read()),
+            'type': 'audio',
+            'ver': '1.0',
+        }
+        data = {
+            'params': json.dumps(params)
+        }
+        r = self.post_content('https://os.line.naver.jp/talk/m/upload.nhn', data=data, files=files)
+        if r.status_code != 201:
+            raise Exception('Upload audio failure.')
+        return True
+
+def sendAudioWithURL(self, to_, url):
+        path = self.downloadFileWithURL(url)
+        try:
+            self.sendAudio(to_, path)
+        except Exception as e:
+            raise Exception(e)
+
+def sendAudioWithUrl(self, to_, url):
+        path = '%s/pythonLine-%1.data' % (tempfile.gettempdir(), randint(0, 9))
+        r = requests.get(url, stream=True, verify=False)
+        if r.status_code == 200:
+           with open(path, 'w') as f:
+              shutil.copyfileobj(r.raw, f)
+        else:
+           raise Exception('Download audio failure.')
+        try:
+            self.sendAudio(to_, path)
+        except Exception as e:
+            raise e
+            
+def downloadFileWithURL(self, fileUrl):
+        saveAs = '%s/pythonLine-%i.data' % (tempfile.gettempdir(), randint(0, 9))
+        r = self.get_content(fileUrl)
+        if r.status_code == 200:
+            with open(saveAs, 'wb') as f:
+                shutil.copyfileobj(r.raw, f)
+            return saveAs
+        else:
+            raise Exception('Download file failure.')
+
+def restart_program():
+    python = sys.executable
+    os.execl(python, python, * sys.argv) 
+def waktu(secs):
+    mins, secs = divmod(secs,60)
+    hours, mins = divmod(mins,60)
+    return '%02d hour %02d minute %02d seconds' % (hours, mins, secs)
 	
 
 def summon(to, nama):
