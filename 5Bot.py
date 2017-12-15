@@ -35,7 +35,7 @@ kk = ki = cl
 
 kb = ke = kc
 
-ko = ka
+kt = ko = ka
 
 ku = ks
 
