@@ -28,7 +28,7 @@ kt = ki
 
 ks = kk
 
-print "SUKSES"
+print ("SUKSES")
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
