@@ -9,7 +9,7 @@ import time,random,sys,json,codecs,threading,glob,re,datetime,subprocess,urllib3
 #from pyowm import OWM
 
 cl = LINETCR.LINE()
-cl.login(token="EnoMvTYT8r6DzH5FPIfc.eoXp0xK1vqkdnL9Q78yCpa.RHW0qXoDXuxWZbKuepliPsICIL3BRUIq//e6ti6FlWY=")
+cl.login(qr=True)
 cl.loginResult()
 
 ki = LINETCR.LINE()
